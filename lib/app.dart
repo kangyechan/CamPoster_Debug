@@ -1,3 +1,4 @@
+import 'package:camposter_debug/login.dart';
 import 'package:camposter_debug/mypage_setting/setting.dart';
 import 'package:camposter_debug/mypage_setting/setting_center.dart';
 import 'package:camposter_debug/mypage_setting/setting_notice.dart';
@@ -20,7 +21,7 @@ class CamPosterApp extends StatelessWidget {
       home: SettingPage(),
       onGenerateRoute: _getRoute,
       routes: {
-
+        '/login': (context) => LoginPage(),
         '/setting': (context) => SettingPage(),
         '/setting_notice': (context) => SettingNoticePage(),
         '/setting_version': (context) => SettingVersionPage(),

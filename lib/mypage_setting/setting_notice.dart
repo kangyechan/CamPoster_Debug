@@ -119,6 +119,7 @@ class _SettingNoticePageState extends State<SettingNoticePage> {
       return ListView(
         children: <Widget>[
           versionSection,
+
           modifySection,
           betaSection,
         ],
