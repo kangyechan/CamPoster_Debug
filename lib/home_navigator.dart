@@ -1,5 +1,11 @@
+import 'package:camposter_debug/home_calendar.dart';
+import 'package:camposter_debug/home_chat.dart';
+import 'package:camposter_debug/home_like.dart';
+import 'package:camposter_debug/home_main.dart';
+import 'package:camposter_debug/home_mypage.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class HomeNavigatorPage extends StatefulWidget {
   String schoolName;
   HomeNavigatorPage({Key key, @required this.schoolName}) : super(key: key);
@@ -13,11 +19,11 @@ class _HomeNavigatorPageState extends State<HomeNavigatorPage> {
 
   String schoolName;
   int currentTab = 0;
-//  ChatPage chatPage;
-//  LikePage likePage;
-//  CalendarPage calendarPage;
-//  MyPage myPage;
-//  HomePage homePage;
+  ChatPage chatPage;
+  LikePage likePage;
+  CalendarPage calendarPage;
+  MyPage myPage;
+  HomePage homePage;
 
   Widget currentPage;
 
@@ -28,15 +34,15 @@ class _HomeNavigatorPageState extends State<HomeNavigatorPage> {
   void initState() {
     super.initState();
 
-//    chatPage = ChatPage();
-//    likePage = LikePage();
-//    homePage = HomePage(schoolName: schoolName,);
-//    myPage = MyPage();
-//    calendarPage = CalendarPage();
-//
-//    pages = [homePage, calendarPage, likePage, chatPage, myPage];
-//    pageTitles = ["Home", "Calendar", "Like", "Chat", "MyPage"];
-//    currentPage = homePage;
+    chatPage = ChatPage();
+    likePage = LikePage();
+    homePage = HomePage(schoolName: schoolName,);
+    myPage = MyPage();
+    calendarPage = CalendarPage();
+
+    pages = [homePage, calendarPage, likePage, chatPage, myPage];
+    pageTitles = ["Home", "Calendar", "Like", "Chat", "MyPage"];
+    currentPage = homePage;
   }
 
   @override
