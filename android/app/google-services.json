@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "166057066972",
+    "firebase_url": "https://camposter-debug.firebaseio.com",
+    "project_id": "camposter-debug",
+    "storage_bucket": "camposter-debug.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:166057066972:android:ecfb0076bed0e2f1",
+        "android_client_info": {
+          "package_name": "camposter.camposterdebug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "166057066972-v080mt5k0v286e9grig17sr65e2v0ql2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "camposter.camposterdebug",
+            "certificate_hash": "afab969e574207fc859fe028c4849b137b6e45e6"
+          }
+        },
+        {
+          "client_id": "166057066972-l9rt9l3j2ohcurnkoujl3giqgbt1fvrh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaC-x1bXswx5uyGh_jvXCCcTb6N-XirR4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "166057066972-l9rt9l3j2ohcurnkoujl3giqgbt1fvrh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

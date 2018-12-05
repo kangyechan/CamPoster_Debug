@@ -46,7 +46,6 @@ class _SettingPersonPageState extends State<SettingPersonPage> {
               .primaryColor,
         ),
         onPressed: () {
-          print('back');
           Navigator.pop(context);
         },
       ),
@@ -122,7 +121,7 @@ class _SettingPersonPageState extends State<SettingPersonPage> {
           content: Text('로그아웃 하시겠습니까??'),
           actions: <Widget>[
             CupertinoDialogAction(
-              child: Text('예'),
+              child: Text('예', style: TextStyle(color: Theme.of(context).primaryColor)),
               onPressed: () {
                 _signOut().then((done) {
                   GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -134,7 +133,7 @@ class _SettingPersonPageState extends State<SettingPersonPage> {
               },
             ),
             CupertinoDialogAction(
-              child: Text('아니오'),
+              child: Text('아니오', style: TextStyle(color: Theme.of(context).primaryColor)),
               onPressed: () {
                 Navigator.pop(context);
               },

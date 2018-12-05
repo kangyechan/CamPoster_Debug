@@ -30,7 +30,6 @@ class _SettingCenterPageState extends State<SettingCenterPage> {
           color: Theme.of(context).primaryColor,
         ),
         onPressed: () {
-          print('back');
           Navigator.pop(context);
         },
       ),

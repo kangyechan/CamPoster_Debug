@@ -30,7 +30,6 @@ class _SettingVersionPageState extends State<SettingVersionPage> {
           color: Theme.of(context).primaryColor,
         ),
         onPressed: () {
-          print('back');
           Navigator.pop(context);
         },
       ),

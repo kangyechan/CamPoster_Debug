@@ -56,7 +56,6 @@ class _SettingPushPageState extends State<SettingPushPage> {
           color: Theme.of(context).primaryColor,
         ),
         onPressed: () {
-          print('back');
           Navigator.pop(context);
         },
       ),
