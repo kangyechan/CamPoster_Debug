@@ -45,11 +45,31 @@ class _MyAlarmTagPageState extends State<MyAlarmTagPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Edit'),
-        centerTitle: true,
-      ),
+      appBar: _buildAppBar(context),
       body: _buildBody(context),
+    );
+  }
+
+  Widget _buildAppBar(BuildContext context) {
+    return AppBar(
+      elevation: 0.4,
+      backgroundColor: Colors.white,
+      title: Text(
+        '알림 태그 수정',
+        style: TextStyle(
+            color: Theme.of(context).primaryColor,
+            fontWeight: FontWeight.bold),
+      ),
+      leading: IconButton(
+        icon: Icon(
+          Icons.keyboard_arrow_left,
+          color: Theme.of(context).primaryColor,
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      centerTitle: true,
     );
   }
 
@@ -57,7 +77,7 @@ class _MyAlarmTagPageState extends State<MyAlarmTagPage> {
     return Stack(
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          padding: EdgeInsets.symmetric(horizontal: 30.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -155,7 +175,7 @@ class _MyAlarmTagPageState extends State<MyAlarmTagPage> {
 
     for (var i = 0; i < tagList.length; i++) {
       tagChips.add(Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+        padding: EdgeInsets.symmetric(horizontal: 4.0),
         child: ActionChip(
           onPressed: () {
             setState(() {

@@ -41,6 +41,7 @@ class _MyPageState extends State<MyPage> {
     Firestore.instance.collection('Users').document(user.uid).collection(
         'AlarmTags').document('AlarmTags').get().then((
         DocumentSnapshot snapshot) {
+      if (!snapshot.exists) _hideSpinKit();
       setState(() {
         alarmTagList = snapshot.data.keys.toList();
       });
@@ -71,7 +72,6 @@ class _MyPageState extends State<MyPage> {
       leading: Container(
 
       ),
-
       title: Text(
         "마이 페이지",
         style: TextStyle(
@@ -81,11 +81,10 @@ class _MyPageState extends State<MyPage> {
       ),
       actions: <Widget>[
         IconButton(
-          icon: Icon(Icons.settings),
-          onPressed: () {
-            Navigator.pushNamed(context, '/setting');
-          },
-        ),
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              Navigator.pushNamed(context, '/setting');
+            })
       ],
     );
   }
@@ -93,25 +92,24 @@ class _MyPageState extends State<MyPage> {
   Widget _buildBody(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Column(
-          children: [
-            _buildTopContainer(),
-            _buildBottomContainer(),
-            Padding(
-             padding: const EdgeInsets.only(left: 20.0),
-             child: Row(
-               children: <Widget>[
-                 Flexible(
-                   child: SingleChildScrollView(
-                     scrollDirection: Axis.horizontal,
-                     child: _buildMyPosterListView(context),
-                   ),
-                 ),
-               ],
-             ),
-           ),
-         ],
-        ),
+        Column(children: [
+          _buildTopContainer(),
+          _buildBottomContainer(),
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0),
+            child: Row(
+              children: <Widget>[
+                Flexible(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: _buildMyPosterListView(context),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ]),
+
         Opacity(
           opacity: spinKitState,
           child: SpinKitCircle(
@@ -125,7 +123,8 @@ class _MyPageState extends State<MyPage> {
 
   Widget _buildTopContainer() {
     return Container(
-      padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0, bottom: 40.0),
+      padding: const EdgeInsets.only(
+          top: 20.0, left: 20.0, right: 20.0, bottom: 40.0),
       child: Row(
         children: <Widget>[
           Padding(
@@ -221,13 +220,12 @@ class _MyPageState extends State<MyPage> {
                   ),
                   onTap: () {
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MyAlarmTagPage(
-                          alarmTagList: alarmTagList,
-                        ),
-                      ),
-                    );
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                MyAlarmTagPage(
+                                  alarmTagList: alarmTagList,
+                                )));
                   },
                 )
               ],
@@ -262,10 +260,9 @@ class _MyPageState extends State<MyPage> {
                     style: TextStyle(color: Colors.grey, fontSize: 10.0),
                   ),
                   onTap: () {
-                    print('ggg');
-//                    Navigator.pushNamed(context, '/mypage_poster_iposted');
+                    Navigator.pushNamed(context, '/mypage_poster_iposted');
                   },
-                ),
+                )
               ],
             ),
           ),
@@ -274,28 +271,27 @@ class _MyPageState extends State<MyPage> {
     );
   }
 
-  List<Padding> _buildAlarmTagChips(BuildContext context, List<String> tagList) {
+  List<Padding> _buildAlarmTagChips(BuildContext context,
+      List<String> tagList) {
     List<Padding> tagChips = [];
 
     for (var i = 0; i < tagList.length; i++) {
       if (i == 4) break;
-      tagChips.add(
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4.0),
-          child: Chip(
-            backgroundColor: CamPosterRed300,
-            label: Text(
-              tagList[i],
-              style: TextStyle(
+      tagChips.add(Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+        child: Chip(
+          backgroundColor: CamPosterRed300,
+          label: Text(
+            tagList[i],
+            style: TextStyle(
                 color: CamPosterWhite,
                 fontWeight: FontWeight.bold,
-                fontSize: 12.0
-              ),
-            ),
+                fontSize: 12.0),
           ),
         ),
-      );
+      ));
     }
+
     return tagChips;
   }
 
@@ -311,7 +307,9 @@ class _MyPageState extends State<MyPage> {
           .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
-        if (snapshot.data.documents.length == 0) return emptyCard;
+        if (snapshot.data.documents.length == 0) {
+          return emptyCard;
+        }
 
         return _buildMyPosterList(context, snapshot.data.documents);
       },
@@ -330,7 +328,8 @@ class _MyPageState extends State<MyPage> {
     Poster poster = Poster.forPosterIPosted(data);
 
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5.0),
+      margin: const EdgeInsets.symmetric(horizontal: 5.0),
+
       width: 170.0,
       height: 220.0,
       child: Card(
@@ -341,6 +340,7 @@ class _MyPageState extends State<MyPage> {
           children: <Widget>[
             AspectRatio(
               aspectRatio: 10 / 13,
+
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
                 child: Image.network(
@@ -367,6 +367,7 @@ class _MyPageState extends State<MyPage> {
     return user;
   }
 
+
   void _showSpinKit() {
     setState(() {
       spinKitState = 1.0;
@@ -380,40 +381,41 @@ class _MyPageState extends State<MyPage> {
   }
 
   Container emptyCard = Container(
-    margin: EdgeInsets.symmetric(horizontal: 5.0),
+    margin: const EdgeInsets.symmetric(horizontal: 5.0),
+
     width: 330.0,
     child: Stack(
-      children : <Widget>[
-        Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              AspectRatio(
-                aspectRatio: 15 / 10,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: Image.asset(
-                    'images/posterdefault.png',
-                    width: 800.0,
-                    height: 300.0,
-                    fit: BoxFit.fill,
+        children : <Widget>[
+          Card(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                AspectRatio(
+                  aspectRatio: 15 / 10,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: Image.asset(
+                      'images/posterdefault.png',
+                      width: 800.0,
+                      height: 300.0,
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 180.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text('게시된 포스터가 없습니다', style: TextStyle(color: CamPosterRed200, fontSize: 12.0), ),
-            ],
-          ),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.only(top: 180.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text('게시된 포스터가 없습니다', style: TextStyle( fontSize: 12.0), ),
+              ],
+            ),
+          )
+        ]
     ),
   );
 }
