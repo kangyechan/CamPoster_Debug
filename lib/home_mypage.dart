@@ -38,10 +38,13 @@ class _MyPageState extends State<MyPage> {
   }
 
   void _getAlarmTagsFromDB(FirebaseUser user) {
-    Firestore.instance.collection('Users').document(user.uid).collection(
-        'AlarmTags').document('AlarmTags').get().then((
-        DocumentSnapshot snapshot) {
-      if (!snapshot.exists) _hideSpinKit();
+    Firestore.instance
+        .collection('Users')
+        .document(user.uid)
+        .collection('AlarmTags')
+        .document('AlarmTags')
+        .get()
+        .then((DocumentSnapshot snapshot) {
       setState(() {
         alarmTagList = snapshot.data.keys.toList();
       });
@@ -69,14 +72,14 @@ class _MyPageState extends State<MyPage> {
     return AppBar(
       elevation: 0.0,
       backgroundColor: CamPosterRed,
-      leading: Container(
-
-      ),
-      title: Text(
-        "마이 페이지",
-        style: TextStyle(
-          color: CamPosterWhite,
-          fontWeight: FontWeight.bold,
+      title: Container(
+        padding: EdgeInsets.only(left: 10.0),
+        child: Text(
+          "마이 페이지",
+          style: TextStyle(
+            color: CamPosterWhite,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       actions: <Widget>[
@@ -92,24 +95,27 @@ class _MyPageState extends State<MyPage> {
   Widget _buildBody(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Column(children: [
-          _buildTopContainer(),
-          _buildBottomContainer(),
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0),
-            child: Row(
-              children: <Widget>[
-                Flexible(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: _buildMyPosterListView(context),
+        Column(
+          children: [
+            _buildTopContainer(),
+            _buildBottomContainer(),
+            Padding(
+              padding: EdgeInsets.only(left: 20.0),
+              child: Row(
+                children: <Widget>[
+                  Flexible(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: ConstrainedBox(
+                          constraints: BoxConstraints(maxWidth: 1000.0),
+                          child: _buildMyPosterListView(context)),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          )
-        ]),
-
+          ],
+        ),
         Opacity(
           opacity: spinKitState,
           child: SpinKitCircle(
@@ -123,8 +129,7 @@ class _MyPageState extends State<MyPage> {
 
   Widget _buildTopContainer() {
     return Container(
-      padding: const EdgeInsets.only(
-          top: 20.0, left: 20.0, right: 20.0, bottom: 40.0),
+      padding: EdgeInsets.only(top: 40.0, left: 20.0, right: 20.0, bottom: 40.0),
       child: Row(
         children: <Widget>[
           Padding(
@@ -155,7 +160,7 @@ class _MyPageState extends State<MyPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(left: 20.0, bottom: 30.0),
+                    padding: EdgeInsets.only(left: 20.0, bottom: 10.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
@@ -171,10 +176,26 @@ class _MyPageState extends State<MyPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 20.0, bottom: 20.0),
+                    padding: EdgeInsets.only(left: 20.0, bottom: 10.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
+                        Text(
+                          '경상북도',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget> [
                         Text(
                           schoolName,
                           style: TextStyle(
@@ -182,14 +203,14 @@ class _MyPageState extends State<MyPage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 15.0,
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
       color: CamPosterRed,
@@ -198,11 +219,11 @@ class _MyPageState extends State<MyPage> {
 
   Widget _buildBottomContainer() {
     return Container(
-      padding: const EdgeInsets.only(left: 30.0, right: 20.0),
+      padding: EdgeInsets.symmetric(horizontal: 30.0),
       child: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(top: 20.0, left: 10.0),
+            padding: EdgeInsets.only(top: 30.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
@@ -210,40 +231,45 @@ class _MyPageState extends State<MyPage> {
                   child: Text(
                     '알림 태그',
                     style: TextStyle(
-                        color: CamPosterRed200, fontWeight: FontWeight.bold),
+                      color: CamPosterRed200,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15.0,
+                    ),
                   ),
                 ),
                 InkWell(
                   child: Text(
                     'Edit',
-                    style: TextStyle(color: Colors.grey, fontSize: 10.0),
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12.0
+                    ),
                   ),
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                MyAlarmTagPage(
-                                  alarmTagList: alarmTagList,
-                                )));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MyAlarmTagPage(
+                          alarmTagList: alarmTagList,
+                        ),
+                      ),
+                    );
                   },
-                )
+                ),
               ],
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 0.0, left: 10.0, bottom: 0.0),
+            padding: EdgeInsets.only(left: 10.0),
             child: Row(
               children: _buildAlarmTagChips(context, alarmTagList),
             ),
           ),
           Divider(
-            color: Theme
-                .of(context)
-                .primaryColor,
+            color: Theme.of(context).primaryColor,
           ),
           Padding(
-            padding: EdgeInsets.only(top: 10.0, left: 10.0, bottom: 10.0),
+            padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
@@ -251,18 +277,24 @@ class _MyPageState extends State<MyPage> {
                   child: Text(
                     '내 포스터',
                     style: TextStyle(
-                        color: CamPosterRed200, fontWeight: FontWeight.bold),
+                      color: CamPosterRed200,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15.0,
+                    ),
                   ),
                 ),
                 InkWell(
                   child: Text(
                     'Edit',
-                    style: TextStyle(color: Colors.grey, fontSize: 10.0),
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12.0
+                    ),
                   ),
                   onTap: () {
                     Navigator.pushNamed(context, '/mypage_poster_iposted');
                   },
-                )
+                ),
               ],
             ),
           ),
@@ -271,27 +303,28 @@ class _MyPageState extends State<MyPage> {
     );
   }
 
-  List<Padding> _buildAlarmTagChips(BuildContext context,
-      List<String> tagList) {
+  List<Padding> _buildAlarmTagChips(BuildContext context, List<String> tagList) {
     List<Padding> tagChips = [];
 
     for (var i = 0; i < tagList.length; i++) {
       if (i == 4) break;
-      tagChips.add(Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4.0),
-        child: Chip(
-          backgroundColor: CamPosterRed300,
-          label: Text(
-            tagList[i],
-            style: TextStyle(
+      tagChips.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+          child: Chip(
+            backgroundColor: CamPosterRed300,
+            label: Text(
+              tagList[i],
+              style: TextStyle(
                 color: CamPosterWhite,
                 fontWeight: FontWeight.bold,
-                fontSize: 12.0),
+                fontSize: 12.0
+              ),
+            ),
           ),
         ),
-      ));
+      );
     }
-
     return tagChips;
   }
 
@@ -304,20 +337,24 @@ class _MyPageState extends State<MyPage> {
           .collection('Users')
           .document(userId)
           .collection('MyPosters')
+          .limit(4)
           .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
-        if (snapshot.data.documents.length == 0) {
-          return emptyCard;
-        }
+        if (snapshot.data.documents.length == 0) return emptyCard;
 
-        return _buildMyPosterList(context, snapshot.data.documents);
+        return ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: 180.0 * snapshot.data.documents.length
+          ),
+          child: _buildMyPosterList(context, snapshot.data.documents),
+        );
       },
     );
   }
 
-  Widget _buildMyPosterList(BuildContext context,
-      List<DocumentSnapshot> snapshot) {
+
+  Widget _buildMyPosterList(BuildContext context, List<DocumentSnapshot> snapshot) {
     return Row(
       children:
       snapshot.map((data) => _buildMyPosterItem(context, data)).toList(),
@@ -328,8 +365,7 @@ class _MyPageState extends State<MyPage> {
     Poster poster = Poster.forPosterIPosted(data);
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 5.0),
-
+      margin: EdgeInsets.symmetric(horizontal: 5.0),
       width: 170.0,
       height: 220.0,
       child: Card(
@@ -381,41 +417,45 @@ class _MyPageState extends State<MyPage> {
   }
 
   Container emptyCard = Container(
-    margin: const EdgeInsets.symmetric(horizontal: 5.0),
-
+    margin: EdgeInsets.symmetric(horizontal: 20.0),
     width: 330.0,
     child: Stack(
-        children : <Widget>[
-          Card(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                AspectRatio(
-                  aspectRatio: 15 / 10,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20.0),
-                    child: Image.asset(
-                      'images/posterdefault.png',
-                      width: 800.0,
-                      height: 300.0,
-                      fit: BoxFit.fill,
-                    ),
+      children : <Widget>[
+        Card(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              AspectRatio(
+                aspectRatio: 15 / 10,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: Image.asset(
+                    'images/posterdefault.png',
+                    width: 800.0,
+                    height: 300.0,
+                    fit: BoxFit.fill,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 180.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text('게시된 포스터가 없습니다', style: TextStyle( fontSize: 12.0), ),
-              ],
-            ),
-          )
-        ]
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 180.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                '게시된 포스터가 없습니다',
+                style: TextStyle(
+                  fontSize: 12.0
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     ),
   );
 }

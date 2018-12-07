@@ -13,11 +13,13 @@ class CalendarPage extends StatelessWidget {
       appBar: AppBar(
         elevation: 0.4,
         backgroundColor: Colors.white,
-        centerTitle: true,
-        title: Text(
-          '캘린더',
-          style: TextStyle(
-            color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold
+        title: Container(
+          padding: EdgeInsets.only(left: 10.0),
+          child: Text(
+            '캘린더',
+            style: TextStyle(
+              color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold
+            ),
           ),
         ),
       ),
