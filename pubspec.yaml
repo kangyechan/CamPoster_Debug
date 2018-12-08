@@ -26,6 +26,8 @@ dependencies:
   cloud_firestore: ^0.8.0
   autocomplete_textfield: ^1.5.1
   flutter_calendar: ^0.0.1
+  flutter_picker:
+    git: git://github.com/yangyxd/flutter_picker.git
 
 
 dev_dependencies:
